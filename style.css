@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Patrick+Hand&v2);
+body{
+  background: #F0EDE4;
+  color: #231F20;
+  font-family: 'Patrick Hand', cursive;
+  width: 800px;
+  margin: 10px auto;
+}
+#title{
+  text-align: center;
+}
+h3{
+  margin: 10px 0 0 20px;
+}
+textarea{
+  width: 780px;
+  max-width: 780px;
+  padding: 10px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li{
+  margin-right: 20px;
+  display: inline-block;
+}
+select, input{
+  font-size: 11pt;
+  width: 150px;
+  vertical-align: middle;
+}
+li span{
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 5px;
+  width: 10px;
+  height: 10px;
+  background-image: url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/images/ui-icons_222222_256x240.png');
+  background-position: 0 -224px;
+}
+#errors{
+  list-style-type: disc;
+}
+#errors li{
+  display: block;
+  background: #742B00;
+  color: #fff;
+}
+#sortable{
+  background: #C7C0A9;
+  margin-top: 0;
+  width: 780px;
+  padding: 10px;
+  min-height: 30px;
+}
+#trash{
+  background: #6B6866;
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 10px;
+  border: 2px dotted #231F20;
+}
+.ui-state-highlight{
+  width: 150px;
+  height: 20px;
+}
