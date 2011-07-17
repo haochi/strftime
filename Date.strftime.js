@@ -4,12 +4,13 @@
 Date.prototype.strftime = function(format){
   var strftime = function(b,c){return b.replace(/%([a-z%])/gi,function(a,b){return c[b];})},
       padded = function(number, padder, size){
-        var pad = padder = padder || '0';
-        size = size || 1;
-        while(pad.length < size){
-          pad += padder;
+        padder = padder || '0';
+        size = size || 2;
+        number = number.toString();
+        while(number.length < size){
+          number = padder + number;
         }
-        return (parseInt(number, 10) < 10) ? (padder || '0') + number : number;
+        return number;
       },
       MONTH_NAMES = ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
       MONTH_NAMES_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -48,13 +49,13 @@ Date.prototype.strftime = function(format){
     d: padded(DATE),
     D: strftime("%m/%y", { m: m_d, y: YEAR }),
     e: DATE,
-    F: strftime("%Y/%m", { m: m_d, Y: FULL_YEAR }),
+    F: strftime("%Y-%m", { m: m_d.replace("/", "-"), Y: FULL_YEAR }),
  // g: '',
  // G: '',
     h: MONTH_NAMES_ABBR[MONTH],
     H: padded(HOUR),
     I: padded(HOUR_12),
-    j: Math.ceil((this - new Date(FULL_YEAR, 0, 1))/86400000),
+    j: padded(Math.ceil((this - new Date(FULL_YEAR, 0, 1))/86400000) + 1, '0', 3),
     k: padded(HOUR, ' '),
     l: padded(HOUR_12, ' '),
     m: padded(MONTH+1),
@@ -70,7 +71,8 @@ Date.prototype.strftime = function(format){
     T: H_M_S,
     u: !DAY ? 7 : DAY,
     U: Math.ceil((((this - FIRST_SUNDAY)/86400000) + 1)/7),
- // V: '0', 
+ // v: '0',
+ // V: '0',
     w: DAY,
     W: Math.ceil((((this - FIRST_MONDAY)/86400000) + 1)/7),
     x: this.toLocaleDateString(),

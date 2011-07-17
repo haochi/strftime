@@ -27,6 +27,9 @@ $(function(){
     connectToSortable: "#sortable",
     helper: "clone", revert: "invalid"
   });
+  $("#draggable").delegate("select", "change", function(){
+    $(this).find("option:first").prop("selected", true);
+  });
   
   // sortables
   $("ul.sortable").sortable({

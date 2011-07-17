@@ -58,5 +58,6 @@ strftime.inherit = function(fields, language){
   }
   return language;
 }
+strftime.languages.Ruby = strftime.inherit('aAbBcCdDeFHIjklmMnpPrRsStTuUWwxXyYzZ%');
 strftime.languages.Python = strftime.inherit('aAbBcdHIjmMpSUwWxXyYZ%');
 strftime.languages.PHP = strftime.inherit('aAdejuwUWbBmCyYHIlMpPRrSTXzZcDxnt%');
