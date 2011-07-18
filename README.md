@@ -8,7 +8,8 @@ I wrote this for a tool that enables you to build up the strftime format string 
     var date = new Date(2011, 0, 1);
     date.strftime("%s"); // returns 1293858000, the number of seconds since the Epoch
 or if you would like to format the current time:
-    (new Date).strftime("%s");
+
+    Date.strftime("%s");
 
 # tests
 I haven't gotten around to write tests yet, so use with care!
