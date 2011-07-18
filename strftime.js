@@ -1,5 +1,19 @@
 var strftime = {};
-
+strftime.languages = {};
+strftime.extend = function(fields, callback, hash){
+  hash = hash || {};
+  fields = fields.split('');
+  for(var i=0, l=fields.length; i<l; i++){
+    hash[fields[i]] = callback ? callback(fields[i]) : fields[i];
+  }
+  return hash;
+};
+strftime.extend_support = function(fields, hash){
+  return strftime.extend(fields, function(i){ return strftime.commons[i]; }, hash);
+}
+strftime.inherit = function(fields, hash){
+  return strftime.extend(fields, function(i){ return '%'+i; }, hash);
+}
 strftime.categories = {
   'Year': 'yY',
   'Month': 'bBm',
@@ -9,7 +23,6 @@ strftime.categories = {
   'Date & Time Stamp': 'cDFrRTxX',
   'Misc.': 'CnpPtzZ%'
 };
-
 strftime.descriptions = {
   a: 'Abbriviated weekday name',
   A: 'Full weekday name',
@@ -49,15 +62,17 @@ strftime.descriptions = {
   Z: 'Timezone or name or abbreviation',
   '%': 'A literal % character'
 };
-strftime.languages = {};
-strftime.inherit = function(fields, language){
-  language = language || {};
-  fields = fields.split('');
-  for(var i=0, l=fields.length; i<l; i++){
-    language[fields[i]] = "%"+fields[i];
-  }
-  return language;
-}
+strftime.commons = {
+  D: '%m/%d/%y',
+  F: '%Y-%m-%d',
+  n: '\n',
+  t: '\t',
+  r: '%I:%M:%S %p',
+  R: '%H:%M',
+  T: '%H:%M:%S',
+};
+
 strftime.languages.Ruby = strftime.inherit('aAbBcCdDeFHIjklmMnpPrRsStTuUWwxXyYzZ%');
-strftime.languages.Python = strftime.inherit('aAbBcdHIjmMpSUwWxXyYZ%');
-strftime.languages.PHP = strftime.inherit('aAdejuwUWbBmCyYHIlMpPRrSTXzZcDxnt%');
+strftime.languages.Python = strftime.inherit('aAbBcdHIjmMpSUwWxXyYZ%', strftime.extend_support('DFntrRT'));
+strftime.languages.PHP = strftime.inherit('aAdejuwUWbBmCyYHIlMpPRrSTXzZcDxnt%', strftime.extend_support('F'));
+strftime.languages["C++"] = strftime.inherit('aAbBcdHIjmMpSUwWxXyYZ%', strftime.extend_support('DFnrRtT'));

@@ -1,4 +1,11 @@
 var tofu = t(/{ *([^} ]+) *}/g),
+    normalize = function(val){
+      switch(val){
+        case '\n': val = '\\n'; break;
+        case '\t': val = '\\t'; break;
+      }
+      return val;
+    },
     now = new Date;
 $(function(){
   var categories = $("<ul>"),
@@ -10,6 +17,9 @@ $(function(){
   $.each(strftime.languages, function(language_name){
     $("<option>").text(language_name).appendTo(languages);
   });
+  languages.change(function(){
+    $("#sortable select, #sortable input").eq(0).trigger("change");
+  });
   $("#languages").replaceWith(languages);
 
   // draggables
@@ -17,7 +27,7 @@ $(function(){
     var category = $("<select>");
     $("<option>").val("").text(category_name).appendTo(category);
     $.each(fields.split(""), function(i, field){
-      $("<option>").val(field).text([now.strftime("%"+field), strftime.descriptions[field]].join(": ")).appendTo(category);
+      $("<option>").val(field).text([normalize(now.strftime("%"+field)), strftime.descriptions[field]].join(": ")).appendTo(category);
     });
     $("<li>").append($("<span>")).append(category).appendTo(categories);
   });
@@ -55,10 +65,10 @@ $(function(){
       if(val && $(this).get(0).tagName.toLowerCase() == "option"){
         var lang = strftime.languages[language];
         if(val in lang){
-          val = lang[val];
+          val = normalize(lang[val]);
         }else{
           val = "%"+val;
-          errors.append($("<li>").text(tofu("[{ language } doesn't support { field }]", { language: language, field: val })));
+          errors.append($("<li>").text(tofu("{ language } doesn't support { field }", { language: language, field: val })));
         }
       }else{
         val.replace(/%/g, '%%');
@@ -75,5 +85,5 @@ $(function(){
   });
 
   // misc
-  $("#content ul, #content li").disableSelection();
+  $("#sortable, #draggable, #trash").find("li, ul").disableSelection();
 });
