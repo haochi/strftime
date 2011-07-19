@@ -70,4 +70,5 @@ strftime.commons = {
   r: '%I:%M:%S %p',
   R: '%H:%M',
   T: '%H:%M:%S',
+  c: '%a %b %d %T %Z %Y'
 };
